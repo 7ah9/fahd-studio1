@@ -1,0 +1,241 @@
+import type { Dict } from "./ar";
+
+export const en: Dict = {
+  meta: {
+    title: "FAHD STUDIO | Roblox Game Development Studio",
+    description:
+      "A studio building games, maps, systems and interfaces inside Roblox Studio — supporting emerging developers and opening the door to join the team.",
+  },
+  nav: {
+    home: "Home",
+    about: "About",
+    services: "Services",
+    portfolio: "Portfolio",
+    support: "Developer Support",
+    join: "Join Us",
+    contact: "Contact",
+    menu: "Menu",
+    close: "Close",
+    language: "العربية",
+  },
+  common: {
+    learnMore: "Learn more",
+    viewAll: "View all",
+    submit: "Submit",
+    sending: "Sending…",
+    all: "All",
+    current: "In development",
+    completed: "Completed",
+    visit: "Visit project",
+    details: "Details",
+    category: "Category",
+    status: "Status",
+    skip: "Skip to content",
+  },
+  hero: {
+    eyebrow: "Roblox development studio",
+    title: "We build Roblox worlds with craft",
+    subtitle:
+      "FAHD STUDIO develops games, maps, systems and interfaces inside Roblox Studio — and opens the door for emerging developers to learn and grow with us.",
+    ctaWork: "Explore our work",
+    ctaJoin: "Join us",
+    scroll: "Scroll to explore",
+    chips: ["Luau", "Maps", "GUI"],
+  },
+  stats: {
+    title: "The studio in numbers",
+    kicker: "Our impact",
+  },
+  about: {
+    kicker: "About us",
+    title: "A studio that builds games — and developers",
+    intro:
+      "FAHD STUDIO specializes in developing and programming games and projects inside Roblox Studio. We work on maps, systems and interfaces, support emerging developers as they grow their skills, and may invite standout talent to join the studio team in the future.",
+    visionTitle: "Our vision",
+    vision:
+      "To be a trusted destination for high-quality Roblox experiences, and a space that shapes a generation of capable developers.",
+    goalsTitle: "Our goals",
+    goals: [
+      "Deliver systems, maps and interfaces with professional quality and stable performance.",
+      "Support emerging developers and speed up their learning with hands-on guidance.",
+      "Build a team of exceptional talent through real opportunities to join.",
+    ],
+    valuesTitle: "Our values",
+    values: [
+      { title: "Craft", text: "We care about small details because they shape the player's experience." },
+      { title: "Collaboration", text: "We work as one team and share knowledge instead of hoarding it." },
+      { title: "Continuous learning", text: "Every project is a chance to try a better approach and learn a new skill." },
+      { title: "Transparency", text: "We are clear from the start about what we can deliver and what we need." },
+    ],
+    processTitle: "How we work",
+    process: [
+      { title: "Understand the idea", text: "We listen to the goal and define scope and priorities." },
+      { title: "Plan and design", text: "We sketch the system or map structure before writing the first line." },
+      { title: "Build", text: "We build with organized, scalable code and performance-minded assets." },
+      { title: "Test and deliver", text: "We test across devices and hand over with clear documentation." },
+    ],
+  },
+  services: {
+    kicker: "Services",
+    title: "What we build for you",
+    subtitle: "From the first idea to a finished experience inside Roblox.",
+    items: [
+      {
+        title: "Roblox systems development",
+        text: "Gameplay systems in Luau: player data, economy, quests and interactions — in organized, scalable code.",
+      },
+      {
+        title: "Roblox map design & development",
+        text: "Maps designed with performance, gameplay flow and visual detail in mind.",
+      },
+      {
+        title: "GUI development",
+        text: "Clear, smooth interfaces that behave consistently on mobile, desktop and controllers.",
+      },
+      {
+        title: "Car & vehicle systems",
+        text: "Vehicles with balanced physics, comfortable handling and customizable settings.",
+      },
+      {
+        title: "Mentoring emerging developers",
+        text: "Hands-on guidance and code review to help new developers level up step by step.",
+      },
+      {
+        title: "Project collaboration",
+        text: "We join developer teams to build parts of a project or a complete experience.",
+      },
+    ],
+  },
+  portfolio: {
+    kicker: "Portfolio",
+    title: "Work we're proud of",
+    subtitle: "Past and current projects from the studio.",
+    empty: "We're preparing our showcase — check back soon.",
+    filterLabel: "Filter by category",
+  },
+  support: {
+    kicker: "Developer support",
+    title: "A space to learn and grow",
+    subtitle:
+      "We support emerging Roblox Studio developers with a space to learn and gain experience — and standout developers may join the studio team when opportunities open.",
+    offerTitle: "What we offer",
+    offers: [
+      { title: "A place to learn", text: "A supportive environment to ask, try and fail without embarrassment." },
+      { title: "Review & guidance", text: "Practical feedback on your code, system structure and map design." },
+      { title: "Real experience", text: "A chance to take part in real projects and build a portfolio." },
+    ],
+    stepsTitle: "How support works",
+    steps: [
+      { title: "Send your request", text: "Tell us what you're working on and where you need help." },
+      { title: "We review & reach out", text: "We review your request and contact you on Discord." },
+      { title: "Apply & improve", text: "Work with guidance and level up over time." },
+      { title: "Chance to join", text: "Standout developers may get the chance to join the team." },
+    ],
+    formTitle: "Request support",
+    formText: "Fill in the form and we'll reach out on Discord.",
+    joinTitle: "Want to join the team?",
+    joinText: "Send a join application and we'll review it when opportunities open.",
+    topics: {
+      scripting: "Scripting (Luau)",
+      building: "Map building",
+      gui: "GUI",
+      vehicles: "Vehicle systems",
+      other: "Other",
+    },
+    success: {
+      title: "Request received",
+      text: "Thank you — we'll review your request and contact you on Discord.",
+    },
+    fields: {
+      full_name: "Name",
+      discord_username: "Discord username",
+      topic: "Support area",
+      message: "What do you need help with?",
+    },
+  },
+  join: {
+    kicker: "Join us",
+    title: "Be part of the team",
+    subtitle:
+      "We're always looking for passionate developers. Tell us about yourself and your work, and we'll review your application when opportunities open.",
+    success: {
+      title: "Application received",
+      text: "Thank you for your interest in joining FAHD STUDIO. We'll review your application and contact you on Discord.",
+    },
+    levels: {
+      beginner: "Beginner",
+      intermediate: "Intermediate",
+      advanced: "Advanced",
+      expert: "Expert",
+    },
+    specialties: {
+      scripting: "Luau scripting",
+      building: "Map building",
+      gui: "GUI",
+      vehicles: "Vehicle systems",
+      modeling: "3D modeling",
+      other: "Other",
+    },
+    fields: {
+      full_name: "Name",
+      age: "Age",
+      discord_username: "Discord username",
+      experience_level: "Roblox Studio experience level",
+      specialty: "Specialty",
+      portfolio_links: "Samples of your previous work",
+      portfolio_hint: "Links to your work, one per line",
+      about: "About you",
+    },
+    note: "By submitting, you agree your data is used only to review your application.",
+  },
+  contact: {
+    kicker: "Contact",
+    title: "We'd love to hear from you",
+    subtitle: "For questions or collaboration, reach us on Discord or through the form.",
+    channels: "Channels",
+    noLinks: "Our channels will appear here soon.",
+    formTitle: "Send a message",
+    success: {
+      title: "Message sent",
+      text: "Thanks for reaching out — we'll reply as soon as we can.",
+    },
+    fields: {
+      name: "Name",
+      email: "Email",
+      subject: "Subject",
+      message: "Message",
+    },
+  },
+  news: {
+    kicker: "News",
+    title: "Latest updates",
+    announcement: "Announcement",
+    news: "News",
+  },
+  footer: {
+    tagline: "A studio focused on Roblox development and supporting emerging developers.",
+    links: "Links",
+    follow: "Follow us",
+    rights: "All rights reserved.",
+  },
+  form: {
+    success: "Submitted successfully",
+    error: "We couldn't submit the form. Please try again.",
+    rate: "Too many attempts. Please wait a moment and try again.",
+    choose: "Choose…",
+  },
+  errors: {
+    required: "This field is required",
+    tooShort: "Too short",
+    tooLong: "Too long",
+    email: "Enter a valid email address",
+    age: "Enter a valid age",
+    invalid: "Invalid value",
+    discord: "Enter a valid Discord username",
+  },
+  notFound: {
+    title: "Page not found",
+    text: "The link you requested isn't available or has moved.",
+    back: "Back to home",
+  },
+};
