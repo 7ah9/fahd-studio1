@@ -17,10 +17,9 @@ export default async function ContactPage() {
   const { t } = await getDict();
   const c = t.contact;
   const socials = await getSocialLinks();
-  // Discord first, since it's the main channel.
-  const sorted = [...socials].sort(
-    (a, b) => Number(b.platform === "discord") - Number(a.platform === "discord"),
-  );
+  // Discord is the main channel: it gets its own direct button.
+  const discord = socials.find((s) => s.platform === "discord");
+  const sorted = socials.filter((s) => s.platform !== "discord");
 
   const fields: FormField[] = [
     { name: "name", label: c.fields.name, type: "text", half: true, maxLength: 80, autoComplete: "name" },
@@ -38,6 +37,20 @@ export default async function ContactPage() {
             <h2 className="mb-5 text-[13px] font-medium uppercase tracking-[0.2em] text-white/40">
               {c.channels}
             </h2>
+            {discord && (
+              <a
+                href={discord.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group mb-4 flex items-center justify-between gap-4 rounded-2xl bg-accent px-6 py-5 text-ink shadow-[0_14px_40px_-12px_rgb(111_156_203/0.7)] transition-all duration-300 hover:bg-white"
+              >
+                <span>
+                  <span className="block text-lg font-semibold">{c.discordCta}</span>
+                  <span className="mt-0.5 block text-sm text-ink/65">{c.discordHint}</span>
+                </span>
+                <IconExternal width={22} height={22} />
+              </a>
+            )}
             {sorted.length > 0 ? (
               <ul className="space-y-3">
                 {sorted.map((s) => (
@@ -60,9 +73,9 @@ export default async function ContactPage() {
                   </li>
                 ))}
               </ul>
-            ) : (
+            ) : !discord ? (
               <p className="glass rounded-2xl px-6 py-5 text-white/50">{c.noLinks}</p>
-            )}
+            ) : null}
           </div>
         </Reveal>
 

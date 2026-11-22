@@ -9,7 +9,7 @@ export default async function NotFound() {
       <div>
         <Image
           src="/brand/fahd-mark.png"
-          alt="FAHD STUDIO"
+          alt="FAHAD STUDIO"
           width={1283}
           height={1187}
           className="mx-auto h-32 w-auto opacity-90"

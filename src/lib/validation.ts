@@ -129,6 +129,18 @@ export const socialSchema = z.object({
   sort_order: z.coerce.number().int().min(0).max(9999).default(0),
 });
 
+export const partnerSchema = z.object({
+  name: text(2, 80),
+  logo_url: z
+    .string()
+    .trim()
+    .max(600, "tooLong")
+    .refine((v) => v === "" || /^https?:\/\//i.test(v), "invalid")
+    .default(""),
+  url: httpUrl.default(""),
+  sort_order: z.coerce.number().int().min(0).max(9999).default(0),
+});
+
 export const applicationUpdateSchema = z.object({
   status: enumOf(["pending", "accepted", "rejected"]),
   admin_note: optionalText(2000),

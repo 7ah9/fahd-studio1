@@ -52,7 +52,7 @@ export function Preloader() {
           >
             <Image
               src="/brand/fahd-mark.png"
-              alt="FAHD STUDIO"
+              alt="FAHAD STUDIO"
               width={1283}
               height={1187}
               priority

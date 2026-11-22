@@ -75,3 +75,11 @@ export type ContactMessage = {
   is_read: boolean;
   created_at: string;
 };
+
+export type Partner = {
+  id: string;
+  name: string;
+  logo_url: string | null;
+  url: string | null;
+  sort_order: number;
+};

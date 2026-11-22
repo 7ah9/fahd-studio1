@@ -1,4 +1,4 @@
--- FAHD STUDIO — database schema
+-- FAHAD STUDIO — database schema
 -- Run once in Supabase: Dashboard -> SQL Editor -> New query -> paste -> Run.
 -- Safe to re-run (uses IF NOT EXISTS / ON CONFLICT).
 
@@ -50,6 +50,15 @@ create table if not exists public.projects (
   sort_order integer not null default 0,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
+);
+
+create table if not exists public.partners (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  logo_url text,
+  url text,
+  sort_order integer not null default 0,
+  created_at timestamptz not null default now()
 );
 
 create table if not exists public.news (
@@ -128,6 +137,7 @@ alter table public.stats             enable row level security;
 alter table public.social_links      enable row level security;
 alter table public.projects          enable row level security;
 alter table public.news              enable row level security;
+alter table public.partners          enable row level security;
 alter table public.join_applications enable row level security;
 alter table public.support_requests  enable row level security;
 alter table public.contact_messages  enable row level security;

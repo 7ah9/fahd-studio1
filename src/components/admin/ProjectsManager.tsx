@@ -192,7 +192,7 @@ export function ProjectsManager({ initial }: { initial: Project[] }) {
             <Field label="Project details (English)" hint="Optional" error={errors.details_en}>
               <TextArea dir="ltr" rows={4} value={draft.details_en} onChange={(e) => set("details_en", e.target.value)} />
             </Field>
-            <Field label="التصنيف" hint="مثال: خريطة، نظام، واجهة" error={errors.category}>
+            <Field label="التصنيف" hint="مثال: مبنى، سيارة، خريطة، نظام، واجهة" error={errors.category}>
               <TextInput value={draft.category} onChange={(e) => set("category", e.target.value)} aria-invalid={!!errors.category} />
             </Field>
             <Field label="الحالة">

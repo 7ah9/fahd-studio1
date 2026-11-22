@@ -14,6 +14,7 @@ const LINKS = [
   { href: "/about", key: "about" },
   { href: "/services", key: "services" },
   { href: "/portfolio", key: "portfolio" },
+  { href: "/partners", key: "partners" },
   { href: "/developer-support", key: "support" },
   { href: "/contact", key: "contact" },
 ] as const;
@@ -59,7 +60,7 @@ export function Header() {
         }`}
       >
         <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between gap-6 px-5 sm:px-8">
-          <Link href="/" className="group flex items-center gap-3" aria-label="FAHD STUDIO">
+          <Link href="/" className="group flex items-center gap-3" aria-label="FAHAD STUDIO">
             <Image
               src="/brand/fahd-mark.png"
               alt=""
@@ -68,18 +69,18 @@ export function Header() {
               priority
               className="h-10 w-auto transition-transform duration-500 group-hover:scale-105"
             />
-            <span className="font-display text-[17px] font-semibold tracking-[0.18em] text-white">
-              FAHD <span className="text-accent">STUDIO</span>
+            <span className="whitespace-nowrap font-display text-[17px] font-semibold tracking-[0.18em] text-white">
+              FAHAD <span className="text-accent">STUDIO</span>
             </span>
           </Link>
 
-          <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
+          <nav className="hidden items-center gap-1 xl:flex" aria-label="Primary">
             {LINKS.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
                 aria-current={isActive(l.href) ? "page" : undefined}
-                className={`relative rounded-full px-4 py-2 text-[14.5px] transition-colors duration-300 ${
+                className={`relative whitespace-nowrap rounded-full px-3.5 py-2 text-[14.5px] transition-colors duration-300 ${
                   isActive(l.href) ? "text-white" : "text-white/55 hover:text-white"
                 }`}
               >
@@ -99,7 +100,7 @@ export function Header() {
             <LanguageToggle className="hidden sm:inline-flex" />
             <Link
               href="/join"
-              className="hidden rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-ink shadow-[0_8px_30px_-8px_rgb(111_156_203/0.7)] transition-all duration-300 hover:bg-white lg:inline-flex"
+              className="hidden whitespace-nowrap rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-ink shadow-[0_8px_30px_-8px_rgb(111_156_203/0.7)] transition-all duration-300 hover:bg-white xl:inline-flex"
             >
               {t.nav.join}
             </Link>
@@ -109,7 +110,7 @@ export function Header() {
               aria-expanded={open}
               aria-controls="mobile-menu"
               aria-label={open ? t.nav.close : t.nav.menu}
-              className="glass grid h-11 w-11 place-items-center rounded-full text-white lg:hidden"
+              className="glass grid h-11 w-11 place-items-center rounded-full text-white xl:hidden"
             >
               {open ? <IconClose width={20} height={20} /> : <IconMenu width={20} height={20} />}
             </button>
@@ -126,7 +127,7 @@ export function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 overflow-y-auto bg-ink/95 pt-[88px] backdrop-blur-2xl lg:hidden"
+            className="fixed inset-0 z-40 overflow-y-auto bg-ink/95 pt-[88px] backdrop-blur-2xl xl:hidden"
           >
             <nav className="mx-auto flex max-w-6xl flex-col gap-1 px-5 pb-12 sm:px-8" aria-label="Mobile">
               {[...LINKS, { href: "/join", key: "join" as const }].map((l, i) => (

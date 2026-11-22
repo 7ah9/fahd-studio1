@@ -10,7 +10,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "FAHD STUDIO",
+    name: "FAHAD STUDIO",
     url: SITE_URL,
     logo: `${SITE_URL}/brand/fahd-mark.png`,
     description:

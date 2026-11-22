@@ -43,10 +43,10 @@ export function AdminShell({
     <div className="min-h-screen lg:flex">
       <aside className="border-b border-white/[0.07] bg-coal lg:sticky lg:top-0 lg:h-screen lg:w-64 lg:shrink-0 lg:border-b-0 lg:border-e">
         <div className="flex items-center justify-between gap-3 px-5 py-4 lg:block lg:py-6">
-          <Link href="/admin" className="flex items-center gap-3" aria-label="FAHD STUDIO admin">
+          <Link href="/admin" className="flex items-center gap-3" aria-label="FAHAD STUDIO admin">
             <Image src="/brand/fahd-mark.png" alt="" width={1283} height={1187} className="h-9 w-auto" />
             <span className="font-display text-sm font-semibold tracking-[0.16em]">
-              FAHD <span className="text-accent">ADMIN</span>
+              FAHAD <span className="text-accent">ADMIN</span>
             </span>
           </Link>
           <button

@@ -145,7 +145,7 @@ export function Hero({ eyebrow, title, subtitle, ctaWork, ctaJoin, scroll, chips
             >
               <Image
                 src="/brand/fahd-mark.png"
-                alt="FAHD STUDIO"
+                alt="FAHAD STUDIO"
                 width={1283}
                 height={1187}
                 priority

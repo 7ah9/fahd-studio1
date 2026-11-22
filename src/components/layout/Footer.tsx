@@ -12,6 +12,7 @@ export async function Footer() {
     { href: "/about", label: t.nav.about },
     { href: "/services", label: t.nav.services },
     { href: "/portfolio", label: t.nav.portfolio },
+    { href: "/partners", label: t.nav.partners },
     { href: "/developer-support", label: t.nav.support },
     { href: "/join", label: t.nav.join },
     { href: "/contact", label: t.nav.contact },
@@ -30,7 +31,7 @@ export async function Footer() {
       <div className="relative mx-auto max-w-6xl px-5 py-16 sm:px-8">
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <Link href="/" className="inline-flex items-center gap-3" aria-label="FAHD STUDIO">
+            <Link href="/" className="inline-flex items-center gap-3" aria-label="FAHAD STUDIO">
               <Image
                 src="/brand/fahd-mark.png"
                 alt=""
@@ -39,7 +40,7 @@ export async function Footer() {
                 className="h-14 w-auto"
               />
               <span className="font-display text-xl font-semibold tracking-[0.18em]">
-                FAHD <span className="text-accent">STUDIO</span>
+                FAHAD <span className="text-accent">STUDIO</span>
               </span>
             </Link>
             <p className="mt-5 max-w-sm text-[15px] leading-7 text-white/55">{t.footer.tagline}</p>
@@ -100,7 +101,7 @@ export async function Footer() {
 
         <div className="hairline mt-14" />
         <p className="mt-6 text-sm text-white/35">
-          © {new Date().getFullYear()} FAHD STUDIO. {t.footer.rights}
+          © {new Date().getFullYear()} FAHAD STUDIO. {t.footer.rights}
         </p>
       </div>
     </footer>

@@ -1,8 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import type { SocialLink, Stat } from "@/lib/types";
+import { useRef, useState } from "react";
+import type { Partner, SocialLink, Stat } from "@/lib/types";
 import { Btn, Card, Field, Message, PageTitle, Select, TextArea, TextInput, api } from "./ui";
 
 type Notice = { kind: "ok" | "error"; text: string } | null;
@@ -282,6 +282,154 @@ function SocialEditor({ initial }: { initial: SocialLink[] }) {
   );
 }
 
+/* ───────────────────────── Partners ───────────────────────── */
+
+function PartnersEditor({ initial }: { initial: Partner[] }) {
+  const router = useRouter();
+  const [rows, setRows] = useState<Partner[]>(initial);
+  const [busyId, setBusyId] = useState<string | null>(null);
+  const [notice, setNotice] = useState<Notice>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
+  const uploadFor = useRef<string | null>(null);
+
+  const edit = (id: string, patch: Partial<Partner>) =>
+    setRows((l) => l.map((r) => (r.id === id ? { ...r, ...patch } : r)));
+
+  async function saveRow(r: Partner) {
+    setBusyId(r.id);
+    setNotice(null);
+    const res = await api<Partner>("PATCH", `/api/admin/partners/${r.id}`, {
+      name: r.name,
+      logo_url: r.logo_url ?? "",
+      url: r.url ?? "",
+      sort_order: r.sort_order,
+    });
+    setBusyId(null);
+    if (res.ok && res.data) {
+      edit(r.id, res.data);
+      setNotice({ kind: "ok", text: "تم حفظ الشريك." });
+      router.refresh();
+    } else {
+      setNotice({ kind: "error", text: "تأكد من الاسم (حرفان على الأقل) وأن الروابط تبدأ بـ https://" });
+    }
+  }
+
+  async function addRow() {
+    setNotice(null);
+    const res = await api<Partner>("POST", "/api/admin/partners", {
+      name: "شريك جديد",
+      logo_url: "",
+      url: "",
+      sort_order: rows.length + 1,
+    });
+    if (res.ok && res.data) {
+      const created = res.data;
+      setRows((l) => [...l, created]);
+    } else {
+      setNotice({ kind: "error", text: "تعذر إضافة الشريك." });
+    }
+  }
+
+  async function removeRow(r: Partner) {
+    if (!window.confirm("حذف هذا الشريك؟")) return;
+    const res = await api("DELETE", `/api/admin/partners/${r.id}`);
+    if (res.ok) {
+      setRows((l) => l.filter((x) => x.id !== r.id));
+      router.refresh();
+    } else {
+      setNotice({ kind: "error", text: "تعذر الحذف." });
+    }
+  }
+
+  async function upload(file: File) {
+    const id = uploadFor.current;
+    if (!id) return;
+    setBusyId(id);
+    setNotice(null);
+    const body = new FormData();
+    body.append("file", file);
+    try {
+      const res = await fetch("/api/admin/upload", { method: "POST", body });
+      const json = (await res.json().catch(() => ({}))) as { url?: string };
+      if (res.ok && json.url) {
+        edit(id, { logo_url: json.url });
+        setNotice({ kind: "ok", text: "تم رفع الشعار. اضغط حفظ لتثبيته." });
+      } else {
+        setNotice({ kind: "error", text: "تعذر رفع الشعار (PNG أو JPG أو WebP، حتى 5 ميغابايت)." });
+      }
+    } finally {
+      setBusyId(null);
+      if (fileRef.current) fileRef.current.value = "";
+    }
+  }
+
+  return (
+    <Card>
+      <h2 className="text-lg font-semibold text-white">شركاؤنا</h2>
+      <p className="mt-1 text-sm text-white/40">
+        تظهر في صفحة «شركاؤنا». الشعار اختياري، وإذا لم يوجد يظهر الاسم بدلاً منه.
+      </p>
+      <div className="mt-6 space-y-4">
+        {rows.map((r) => (
+          <div key={r.id} className="grid gap-3 rounded-2xl border border-white/[0.07] p-4 lg:grid-cols-[1fr_1fr_auto]">
+            <Field label="اسم الشريك">
+              <TextInput value={r.name} onChange={(e) => edit(r.id, { name: e.target.value })} />
+            </Field>
+            <Field label="رابط الشريك (اختياري)">
+              <TextInput dir="ltr" type="url" placeholder="https://" value={r.url ?? ""} onChange={(e) => edit(r.id, { url: e.target.value })} />
+            </Field>
+            <div className="flex items-end gap-2">
+              <Btn onClick={() => saveRow(r)} disabled={busyId === r.id}>
+                حفظ
+              </Btn>
+              <Btn variant="danger" onClick={() => removeRow(r)}>
+                حذف
+              </Btn>
+            </div>
+            <div className="flex flex-wrap items-center gap-3 lg:col-span-3">
+              {r.logo_url && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={r.logo_url} alt="" className="h-12 w-auto max-w-[160px] rounded-lg bg-white/[0.04] object-contain p-1" />
+              )}
+              <Btn
+                variant="ghost"
+                onClick={() => {
+                  uploadFor.current = r.id;
+                  fileRef.current?.click();
+                }}
+                disabled={busyId === r.id}
+              >
+                {r.logo_url ? "تغيير الشعار" : "رفع شعار"}
+              </Btn>
+              {r.logo_url && (
+                <Btn variant="danger" onClick={() => edit(r.id, { logo_url: "" })}>
+                  إزالة الشعار
+                </Btn>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+      <input
+        ref={fileRef}
+        type="file"
+        accept="image/png,image/jpeg,image/webp,image/avif"
+        className="hidden"
+        onChange={(e) => {
+          const f = e.target.files?.[0];
+          if (f) void upload(f);
+        }}
+      />
+      <div className="mt-5 flex flex-wrap items-center gap-4">
+        <Btn variant="ghost" onClick={addRow}>
+          + إضافة شريك
+        </Btn>
+        {notice && <Message kind={notice.kind}>{notice.text}</Message>}
+      </div>
+    </Card>
+  );
+}
+
 /* ───────────────────────── Page ───────────────────────── */
 
 export function ContentEditor(props: {
@@ -289,6 +437,7 @@ export function ContentEditor(props: {
   defaults: Record<HeroKeys, string>;
   stats: Stat[];
   socials: SocialLink[];
+  partners: Partner[];
 }) {
   return (
     <>
@@ -297,6 +446,7 @@ export function ContentEditor(props: {
         <HeroTexts settings={props.settings} defaults={props.defaults} />
         <StatsEditor initial={props.stats} />
         <SocialEditor initial={props.socials} />
+        <PartnersEditor initial={props.partners} />
       </div>
     </>
   );

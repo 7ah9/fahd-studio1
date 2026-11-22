@@ -24,11 +24,11 @@ export async function generateMetadata(): Promise<Metadata> {
   const t = dictionaries[lang];
   return {
     metadataBase: new URL(SITE_URL),
-    title: { default: t.meta.title, template: "%s | FAHD STUDIO" },
+    title: { default: t.meta.title, template: "%s | FAHAD STUDIO" },
     description: t.meta.description,
-    applicationName: "FAHD STUDIO",
+    applicationName: "FAHAD STUDIO",
     keywords: [
-      "FAHD STUDIO",
+      "FAHAD STUDIO",
       "Roblox",
       "Roblox Studio",
       "Luau",
@@ -38,12 +38,12 @@ export async function generateMetadata(): Promise<Metadata> {
     ],
     openGraph: {
       type: "website",
-      siteName: "FAHD STUDIO",
+      siteName: "FAHAD STUDIO",
       title: t.meta.title,
       description: t.meta.description,
       locale: lang === "ar" ? "ar_SA" : "en_US",
       alternateLocale: lang === "ar" ? ["en_US"] : ["ar_SA"],
-      images: [{ url: "/og.png", width: 1200, height: 630, alt: "FAHD STUDIO" }],
+      images: [{ url: "/og.png", width: 1200, height: 630, alt: "FAHAD STUDIO" }],
     },
     twitter: {
       card: "summary_large_image",

@@ -17,14 +17,14 @@ export default async function AdminLoginPage() {
       <div className="glass relative w-full max-w-md rounded-3xl p-8 sm:p-10">
         <Image
           src="/brand/fahd-mark.png"
-          alt="FAHD STUDIO"
+          alt="FAHAD STUDIO"
           width={1283}
           height={1187}
           priority
           className="mx-auto h-20 w-auto"
         />
         <h1 className="mt-6 text-center text-2xl font-semibold text-white">تسجيل دخول الإدارة</h1>
-        <p className="mt-2 text-center text-sm text-white/45">خاص بإدارة FAHD STUDIO فقط</p>
+        <p className="mt-2 text-center text-sm text-white/45">خاص بإدارة FAHAD STUDIO فقط</p>
         {configured ? (
           <LoginForm />
         ) : (

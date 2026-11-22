@@ -4,6 +4,7 @@ import {
   applicationUpdateSchema,
   messageUpdateSchema,
   newsSchema,
+  partnerSchema,
   projectSchema,
   socialSchema,
   statSchema,
@@ -46,6 +47,12 @@ export const RESOURCES: Record<string, ResourceConfig> = {
   social: {
     table: "social_links",
     schema: socialSchema,
+    canCreate: true,
+    order: [{ column: "sort_order", ascending: true }],
+  },
+  partners: {
+    table: "partners",
+    schema: partnerSchema,
     canCreate: true,
     order: [{ column: "sort_order", ascending: true }],
   },

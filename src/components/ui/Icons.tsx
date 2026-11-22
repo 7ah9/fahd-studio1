@@ -100,4 +100,12 @@ export const IconSpark = (p: P) => (
   </Base>
 );
 
-export const SERVICE_ICONS = [IconCode, IconMap, IconLayout, IconCar, IconUsers, IconLink];
+export const IconBuilding = (p: P) => (
+  <Base {...p}>
+    <path d="M4 20.5h16M6 20.5V6.2a1.2 1.2 0 0 1 1.2-1.2h5.6A1.2 1.2 0 0 1 14 6.2v14.3M14 10h3.8a1.2 1.2 0 0 1 1.2 1.2v9.3" />
+    <path d="M9 8.5h2M9 12h2M9 15.5h2M16.5 13.5h.01M16.5 17h.01" />
+  </Base>
+);
+
+/** Same order as `services.items` in the dictionaries. */
+export const SERVICE_ICONS = [IconBuilding, IconCar, IconMap, IconCode, IconLayout, IconUsers, IconLink];

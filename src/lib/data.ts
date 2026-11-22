@@ -1,6 +1,6 @@
 import "server-only";
 import { db, isDbConfigured } from "./supabase/admin";
-import type { NewsItem, Project, SocialLink, Stat } from "./types";
+import type { NewsItem, Partner, Project, SocialLink, Stat } from "./types";
 
 /** Runs a query, returning `fallback` if the database is unconfigured or fails. */
 async function safe<T>(fallback: T, run: () => PromiseLike<{ data: T | null; error: unknown }>): Promise<T> {
@@ -63,5 +63,11 @@ export function getNews(limit = 4): Promise<NewsItem[]> {
       .eq("published", true)
       .order("created_at", { ascending: false })
       .limit(limit),
+  );
+}
+
+export function getPartners(): Promise<Partner[]> {
+  return safe<Partner[]>([], () =>
+    db().from("partners").select("*").order("sort_order", { ascending: true }),
   );
 }

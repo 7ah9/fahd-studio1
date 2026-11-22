@@ -2,15 +2,16 @@ import type { Dict } from "./ar";
 
 export const en: Dict = {
   meta: {
-    title: "FAHD STUDIO | Roblox Game Development Studio",
+    title: "FAHAD STUDIO | Roblox Game Development Studio",
     description:
-      "A studio building games, maps, systems and interfaces inside Roblox Studio — supporting emerging developers and opening the door to join the team.",
+      "A Roblox Studio game studio best known for its buildings and vehicles — alongside maps, systems and interfaces — supporting emerging developers along the way.",
   },
   nav: {
     home: "Home",
     about: "About",
     services: "Services",
     portfolio: "Portfolio",
+    partners: "Partners",
     support: "Developer Support",
     join: "Join Us",
     contact: "Contact",
@@ -36,11 +37,11 @@ export const en: Dict = {
     eyebrow: "Roblox development studio",
     title: "We build Roblox worlds with craft",
     subtitle:
-      "FAHD STUDIO develops games, maps, systems and interfaces inside Roblox Studio — and opens the door for emerging developers to learn and grow with us.",
+      "FAHAD STUDIO builds architecture and vehicles inside Roblox Studio — alongside maps, systems and interfaces — and opens the door for emerging developers to learn and grow with us.",
     ctaWork: "Explore our work",
     ctaJoin: "Join us",
     scroll: "Scroll to explore",
-    chips: ["Luau", "Maps", "GUI"],
+    chips: ["Vehicles", "Buildings", "Luau"],
   },
   stats: {
     title: "The studio in numbers",
@@ -50,13 +51,13 @@ export const en: Dict = {
     kicker: "About us",
     title: "A studio that builds games — and developers",
     intro:
-      "FAHD STUDIO specializes in developing and programming games and projects inside Roblox Studio. We work on maps, systems and interfaces, support emerging developers as they grow their skills, and may invite standout talent to join the studio team in the future.",
+      "FAHAD STUDIO specializes in developing and programming games and projects inside Roblox Studio. We are strongest at building architecture and designing and programming vehicles, and we also work on maps, systems and interfaces. We support emerging developers as they grow their skills, and may invite standout talent to join the studio team in the future.",
     visionTitle: "Our vision",
     vision:
       "To be a trusted destination for high-quality Roblox experiences, and a space that shapes a generation of capable developers.",
     goalsTitle: "Our goals",
     goals: [
-      "Deliver systems, maps and interfaces with professional quality and stable performance.",
+      "Deliver buildings, vehicles, maps, systems and interfaces with professional quality and stable performance.",
       "Support emerging developers and speed up their learning with hands-on guidance.",
       "Build a team of exceptional talent through real opportunities to join.",
     ],
@@ -78,23 +79,27 @@ export const en: Dict = {
   services: {
     kicker: "Services",
     title: "What we build for you",
-    subtitle: "From the first idea to a finished experience inside Roblox.",
+    subtitle: "Our strongest work is buildings and vehicles, backed by systems, maps and interfaces.",
     items: [
       {
-        title: "Roblox systems development",
-        text: "Gameplay systems in Luau: player data, economy, quests and interactions — in organized, scalable code.",
+        title: "Architecture & building design",
+        text: "Buildings, complexes and architectural environments crafted with care — from facades and interiors to lighting — optimized for every device.",
+      },
+      {
+        title: "Vehicle design & programming",
+        text: "Detailed cars with balanced physics, comfortable handling and customizable settings.",
       },
       {
         title: "Roblox map design & development",
-        text: "Maps designed with performance, gameplay flow and visual detail in mind.",
+        text: "Complete maps that bring buildings, roads and environment together with thoughtful gameplay flow and stable performance.",
+      },
+      {
+        title: "Roblox systems & scripting",
+        text: "Gameplay systems in Luau: player data, economy, quests and interactions — in organized, scalable code.",
       },
       {
         title: "GUI development",
         text: "Clear, smooth interfaces that behave consistently on mobile, desktop and controllers.",
-      },
-      {
-        title: "Car & vehicle systems",
-        text: "Vehicles with balanced physics, comfortable handling and customizable settings.",
       },
       {
         title: "Mentoring emerging developers",
@@ -112,6 +117,13 @@ export const en: Dict = {
     subtitle: "Past and current projects from the studio.",
     empty: "We're preparing our showcase — check back soon.",
     filterLabel: "Filter by category",
+  },
+  partners: {
+    kicker: "Partners",
+    title: "Partners in success",
+    subtitle: "Teams and brands we're proud to work with.",
+    empty: "Our partners will appear here soon.",
+    visit: "Visit website",
   },
   support: {
     kicker: "Developer support",
@@ -137,7 +149,7 @@ export const en: Dict = {
     joinText: "Send a join application and we'll review it when opportunities open.",
     topics: {
       scripting: "Scripting (Luau)",
-      building: "Map building",
+      building: "Buildings & maps",
       gui: "GUI",
       vehicles: "Vehicle systems",
       other: "Other",
@@ -160,7 +172,7 @@ export const en: Dict = {
       "We're always looking for passionate developers. Tell us about yourself and your work, and we'll review your application when opportunities open.",
     success: {
       title: "Application received",
-      text: "Thank you for your interest in joining FAHD STUDIO. We'll review your application and contact you on Discord.",
+      text: "Thank you for your interest in joining FAHAD STUDIO. We'll review your application and contact you on Discord.",
     },
     levels: {
       beginner: "Beginner",
@@ -170,7 +182,7 @@ export const en: Dict = {
     },
     specialties: {
       scripting: "Luau scripting",
-      building: "Map building",
+      building: "Buildings & maps",
       gui: "GUI",
       vehicles: "Vehicle systems",
       modeling: "3D modeling",
@@ -194,6 +206,8 @@ export const en: Dict = {
     subtitle: "For questions or collaboration, reach us on Discord or through the form.",
     channels: "Channels",
     noLinks: "Our channels will appear here soon.",
+    discordCta: "Join our Discord server",
+    discordHint: "The fastest way to reach us",
     formTitle: "Send a message",
     success: {
       title: "Message sent",
