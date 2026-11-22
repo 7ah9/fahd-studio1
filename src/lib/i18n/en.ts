@@ -200,6 +200,40 @@ export const en: Dict = {
     },
     note: "By submitting, you agree your data is used only to review your application.",
   },
+  staff: {
+    navLabel: "Staff Application",
+    kicker: "Server Staff",
+    title: "Help run our community",
+    subtitle:
+      "We are looking for responsible, cooperative people to help manage the studio's Discord server. Apply and we will review it carefully.",
+    success: {
+      title: "Application received",
+      text: "Thanks for your interest in joining the server staff. We will review it and contact you on Discord.",
+    },
+    roles: {
+      moderator: "Moderator",
+      support: "Member support",
+      events: "Events organizer",
+    },
+    experiences: {
+      none: "No previous experience",
+      some: "Some experience",
+      experienced: "Solid server-management experience",
+    },
+    fields: {
+      full_name: "Name",
+      age: "Age",
+      discord_username: "Discord username",
+      role: "Role you want",
+      experience: "Previous moderation experience",
+      availability: "Your daily availability",
+      motivation: "Why do you want to join the staff?",
+      scenario: "A member keeps breaking the rules and provoking others in chat. What do you do?",
+    },
+    note: "By submitting you agree your data is used only to review this application.",
+    joinCta: "Want to join the server staff?",
+    joinCtaBtn: "Apply now",
+  },
   contact: {
     kicker: "Contact",
     title: "We'd love to hear from you",

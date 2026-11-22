@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Button } from "@/components/ui/Button";
 import { PageHero } from "@/components/ui/PageHero";
 import { Reveal } from "@/components/ui/Reveal";
 import { DynamicForm, type FormField } from "@/components/forms/DynamicForm";
@@ -55,6 +56,14 @@ export default async function JoinPage() {
             success={j.success}
             note={j.note}
           />
+        </Reveal>
+        <Reveal>
+          <div className="glass mt-8 flex flex-wrap items-center justify-between gap-4 rounded-2xl p-6">
+            <p className="text-white/80">{t.staff.joinCta}</p>
+            <Button href="/staff" variant="ghost" arrow>
+              {t.staff.joinCtaBtn}
+            </Button>
+          </div>
         </Reveal>
       </section>
     </>

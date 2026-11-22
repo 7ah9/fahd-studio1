@@ -4,6 +4,7 @@ import type { ZodTypeAny } from "zod";
 import { db, isDbConfigured } from "./supabase/admin";
 import { clientIp, rateLimit } from "./rate-limit";
 import { fieldErrors } from "./validation";
+import { notifyDiscord } from "./notify";
 
 const MAX_BODY_BYTES = 20_000;
 
@@ -17,8 +18,10 @@ export function createSubmitHandler(opts: {
   name: string;
   limit?: number;
   windowMs?: number;
+  /** Optional Discord notification sent after a successful insert. */
+  notify?: { title: string; color: number; adminPath: string };
 }) {
-  const { schema, table, name, limit = 5, windowMs = 10 * 60 * 1000 } = opts;
+  const { schema, table, name, limit = 5, windowMs = 10 * 60 * 1000, notify } = opts;
 
   return async function POST(req: Request) {
     if (!isDbConfigured()) {
@@ -61,6 +64,9 @@ export function createSubmitHandler(opts: {
     if (error) {
       console.error(`[${name}]`, error);
       return NextResponse.json({ error: "server" }, { status: 500 });
+    }
+    if (notify) {
+      await notifyDiscord({ ...notify, data: parsed.data as Record<string, unknown> });
     }
     return NextResponse.json({ ok: true });
   };

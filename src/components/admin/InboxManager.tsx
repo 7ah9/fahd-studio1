@@ -7,7 +7,7 @@ import { Badge, Btn, Card, Message, PageTitle, TextArea, api, formatDate } from 
 export type InboxRow = { id: string; created_at: string } & Record<string, unknown>;
 
 export type InboxConfig = {
-  resource: "applications" | "support" | "messages";
+  resource: "applications" | "staff" | "support" | "messages";
   title: string;
   subtitle: string;
   empty: string;

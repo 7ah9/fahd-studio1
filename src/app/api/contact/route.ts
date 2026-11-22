@@ -6,4 +6,5 @@ export const POST = createSubmitHandler({
   table: "contact_messages",
   name: "contact",
   limit: 5,
+  notify: { title: "✉️ رسالة تواصل جديدة", color: 9807270, adminPath: "/admin/messages" },
 });

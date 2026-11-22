@@ -39,6 +39,8 @@ export const SPECIALTIES = [
   "other",
 ] as const;
 export const SUPPORT_TOPICS = ["scripting", "building", "gui", "vehicles", "other"] as const;
+export const STAFF_ROLES = ["moderator", "support", "events"] as const;
+export const STAFF_EXPERIENCE = ["none", "some", "experienced"] as const;
 export const PLATFORMS = [
   "discord",
   "roblox",
@@ -59,6 +61,17 @@ export const joinSchema = z.object({
   specialty: enumOf(SPECIALTIES),
   portfolio_links: optionalText(1500),
   about: text(10, 1500),
+});
+
+export const staffSchema = z.object({
+  full_name: text(2, 80),
+  age: z.coerce.number({ invalid_type_error: "age" }).int("age").min(14, "age").max(80, "age"),
+  discord_username: discord,
+  role: enumOf(STAFF_ROLES),
+  experience: enumOf(STAFF_EXPERIENCE),
+  availability: text(3, 200),
+  motivation: text(20, 1500),
+  scenario: text(20, 1500),
 });
 
 export const supportSchema = z.object({

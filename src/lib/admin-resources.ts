@@ -62,6 +62,12 @@ export const RESOURCES: Record<string, ResourceConfig> = {
     canCreate: false,
     order: [{ column: "created_at", ascending: false }],
   },
+  staff: {
+    table: "staff_applications",
+    schema: applicationUpdateSchema,
+    canCreate: false,
+    order: [{ column: "created_at", ascending: false }],
+  },
   support: {
     table: "support_requests",
     schema: supportUpdateSchema,

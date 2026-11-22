@@ -5,12 +5,13 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, type ReactNode } from "react";
 
-type Badges = { applications: number; support: number; messages: number };
+type Badges = { applications: number; staff: number; support: number; messages: number };
 
 const NAV: { href: string; label: string; badge?: keyof Badges }[] = [
   { href: "/admin", label: "لوحة المعلومات" },
   { href: "/admin/projects", label: "المشاريع" },
   { href: "/admin/applications", label: "طلبات الانضمام", badge: "applications" },
+  { href: "/admin/staff", label: "تقديمات إدارة السيرفر", badge: "staff" },
   { href: "/admin/support", label: "دعم المطورين", badge: "support" },
   { href: "/admin/messages", label: "رسائل التواصل", badge: "messages" },
   { href: "/admin/news", label: "الأخبار والإعلانات" },

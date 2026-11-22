@@ -16,14 +16,15 @@ export default async function PanelLayout({ children }: { children: React.ReactN
   const user = await getAdminUser();
   if (!user) redirect("/admin/login");
 
-  const [applications, support, messages] = await Promise.all([
+  const [applications, staff, support, messages] = await Promise.all([
     count("join_applications", "status", "pending"),
+    count("staff_applications", "status", "pending"),
     count("support_requests", "status", "new"),
     count("contact_messages", "is_read", false),
   ]);
 
   return (
-    <AdminShell email={user.email ?? ""} badges={{ applications, support, messages }}>
+    <AdminShell email={user.email ?? ""} badges={{ applications, staff, support, messages }}>
       {children}
     </AdminShell>
   );

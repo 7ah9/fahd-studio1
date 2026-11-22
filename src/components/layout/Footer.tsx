@@ -15,6 +15,7 @@ export async function Footer() {
     { href: "/partners", label: t.nav.partners },
     { href: "/developer-support", label: t.nav.support },
     { href: "/join", label: t.nav.join },
+    { href: "/staff", label: t.staff.navLabel },
     { href: "/contact", label: t.nav.contact },
   ];
 

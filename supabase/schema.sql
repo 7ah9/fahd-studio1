@@ -88,6 +88,21 @@ create table if not exists public.join_applications (
   created_at timestamptz not null default now()
 );
 
+create table if not exists public.staff_applications (
+  id uuid primary key default gen_random_uuid(),
+  full_name text not null,
+  age integer not null check (age between 14 and 80),
+  discord_username text not null,
+  role text not null check (role in ('moderator','support','events')),
+  experience text not null check (experience in ('none','some','experienced')),
+  availability text not null,
+  motivation text not null,
+  scenario text not null,
+  status text not null default 'pending' check (status in ('pending','accepted','rejected')),
+  admin_note text not null default '',
+  created_at timestamptz not null default now()
+);
+
 create table if not exists public.support_requests (
   id uuid primary key default gen_random_uuid(),
   full_name text not null,
@@ -140,6 +155,7 @@ alter table public.news              enable row level security;
 alter table public.partners          enable row level security;
 alter table public.join_applications enable row level security;
 alter table public.support_requests  enable row level security;
+alter table public.staff_applications enable row level security;
 alter table public.contact_messages  enable row level security;
 alter table public.page_views        enable row level security;
 

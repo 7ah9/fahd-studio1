@@ -6,4 +6,5 @@ export const POST = createSubmitHandler({
   table: "join_applications",
   name: "join",
   limit: 3,
+  notify: { title: "📥 طلب انضمام جديد", color: 7314635, adminPath: "/admin/applications" },
 });
