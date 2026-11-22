@@ -22,13 +22,17 @@ export function LoginForm() {
       return;
     }
     setBusy(false);
-    setError(
+    const base =
       res.status === 429
         ? "محاولات كثيرة. انتظر بضع دقائق ثم أعد المحاولة."
         : res.status === 503
           ? "الخدمة غير مهيأة بعد."
-          : "بيانات الدخول غير صحيحة.",
-    );
+          : res.error === "admin_lookup_failed"
+            ? "تم التحقق من حسابك، لكن تعذر فحص صلاحية الإدارة (راجع المفتاح السري في إعدادات الاستضافة)."
+            : res.error === "not_admin"
+              ? "هذا الحساب غير مضاف كمدير."
+              : "بيانات الدخول غير صحيحة.";
+    setError(res.detail ? `${base} [${res.detail}]` : base);
   }
 
   return (

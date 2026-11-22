@@ -125,6 +125,7 @@ export type ApiResult<T = unknown> = {
   data?: T;
   fields?: Record<string, string>;
   error?: string;
+  detail?: string;
 };
 
 export async function api<T = unknown>(
@@ -142,8 +143,16 @@ export async function api<T = unknown>(
       data?: T;
       fields?: Record<string, string>;
       error?: string;
+      detail?: string;
     };
-    return { ok: res.ok, status: res.status, data: json.data, fields: json.fields, error: json.error };
+    return {
+      ok: res.ok,
+      status: res.status,
+      data: json.data,
+      fields: json.fields,
+      error: json.error,
+      detail: json.detail,
+    };
   } catch {
     return { ok: false, status: 0, error: "network" };
   }
