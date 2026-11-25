@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { questionsForRole } from "./staff-questions";
 
 /**
  * Error messages are stable codes ("required", "tooShort", ...). The UI maps
@@ -63,16 +64,42 @@ export const joinSchema = z.object({
   about: text(10, 1500),
 });
 
-export const staffSchema = z.object({
-  full_name: text(2, 80),
-  age: z.coerce.number({ invalid_type_error: "age" }).int("age").min(14, "age").max(80, "age"),
-  discord_username: discord,
-  role: enumOf(STAFF_ROLES),
-  experience: enumOf(STAFF_EXPERIENCE),
-  availability: text(3, 200),
-  motivation: text(20, 1500),
-  scenario: text(20, 1500),
-});
+export const staffSchema = z
+  .object({
+    full_name: text(2, 80),
+    age: z.coerce.number({ invalid_type_error: "age" }).int("age").min(14, "age").max(80, "age"),
+    discord_username: discord,
+    role: enumOf(STAFF_ROLES),
+    experience: enumOf(STAFF_EXPERIENCE),
+    answers: z.record(z.string(), z.string().trim().max(1500, "tooLong")).default({}),
+  })
+  .superRefine((d, ctx) => {
+    for (const q of questionsForRole(d.role)) {
+      const a = (d.answers[q.id] ?? "").trim();
+      if (!a) {
+        ctx.addIssue({ code: "custom", message: "required", path: ["q_" + q.id] });
+      } else if (q.type === "select") {
+        if (!q.options?.some((o) => o.value === a)) {
+          ctx.addIssue({ code: "custom", message: "invalid", path: ["q_" + q.id] });
+        }
+      } else if (q.min && a.length < q.min) {
+        ctx.addIssue({ code: "custom", message: "tooShort", path: ["q_" + q.id] });
+      }
+    }
+  })
+  .transform((d) => ({
+    full_name: d.full_name,
+    age: d.age,
+    discord_username: d.discord_username,
+    role: d.role,
+    experience: d.experience,
+    // Stored with the (Arabic) question text so the admin sees what was asked.
+    answers: questionsForRole(d.role).map((q) => {
+      const a = (d.answers[q.id] ?? "").trim();
+      const label = q.type === "select" ? (q.options?.find((o) => o.value === a)?.ar ?? a) : a;
+      return { id: q.id, q: q.ar, a: label };
+    }),
+  }));
 
 export const supportSchema = z.object({
   full_name: text(2, 80),

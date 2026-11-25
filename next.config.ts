@@ -11,6 +11,7 @@ const supabaseHost = (() => {
 const config: NextConfig = {
   poweredByHeader: false,
   images: {
+    minimumCacheTTL: 60 * 60 * 24 * 30,
     formats: ["image/avif", "image/webp"],
     remotePatterns: supabaseHost
       ? [
@@ -35,6 +36,10 @@ const config: NextConfig = {
             value: "camera=(), microphone=(), geolocation=()",
           },
         ],
+      },
+      {
+        source: "/brand/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=2592000" }],
       },
       {
         source: "/admin/:path*",

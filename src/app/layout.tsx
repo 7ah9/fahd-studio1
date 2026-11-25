@@ -8,13 +8,13 @@ import "./globals.css";
 
 const arabic = IBM_Plex_Sans_Arabic({
   subsets: ["arabic", "latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
   variable: "--f-ar",
   display: "swap",
 });
 const latin = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
   variable: "--f-lat",
   display: "swap",
 });

@@ -17,16 +17,22 @@ const config: InboxConfig = {
     {
       key: "role",
       label: "الدور المطلوب",
-      map: { moderator: "مشرف (Moderator)", support: "دعم الأعضاء", events: "تنظيم الفعاليات" },
+      map: { moderator: "أدمن (Admin)", support: "دعم الأعضاء", events: "تنظيم الفعاليات" },
     },
     {
       key: "experience",
       label: "الخبرة السابقة",
       map: { none: "لا يملك خبرة", some: "خبرة بسيطة", experienced: "خبرة جيدة" },
     },
-    { key: "availability", label: "أوقات التواجد", long: true },
-    { key: "motivation", label: "سبب التقديم", long: true },
-    { key: "scenario", label: "إجابة السيناريو", long: true },
+    // Older applications (before the new question sets) kept these as separate columns.
+    { key: "availability", label: "أوقات التواجد (تقديم قديم)", long: true, hideEmpty: true },
+    { key: "motivation", label: "سبب التقديم (تقديم قديم)", long: true, hideEmpty: true },
+    {
+      key: "scenario",
+      label: "جواب سؤال: عضو يخالف القوانين ويستفز الآخرين في الشات، كيف تتصرف؟",
+      long: true,
+      hideEmpty: true,
+    },
   ],
   status: {
     key: "status",
@@ -37,6 +43,7 @@ const config: InboxConfig = {
     ],
   },
   noteKey: "admin_note",
+  qaKey: "answers",
 };
 
 export default async function AdminStaffPage() {

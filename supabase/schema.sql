@@ -95,9 +95,10 @@ create table if not exists public.staff_applications (
   discord_username text not null,
   role text not null check (role in ('moderator','support','events')),
   experience text not null check (experience in ('none','some','experienced')),
-  availability text not null,
-  motivation text not null,
-  scenario text not null,
+  availability text default '',
+  motivation text default '',
+  scenario text default '',
+  answers jsonb not null default '[]'::jsonb,
   status text not null default 'pending' check (status in ('pending','accepted','rejected')),
   admin_note text not null default '',
   created_at timestamptz not null default now()

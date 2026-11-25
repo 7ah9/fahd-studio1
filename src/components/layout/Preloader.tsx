@@ -56,6 +56,7 @@ export function Preloader() {
               width={1283}
               height={1187}
               priority
+              sizes="220px"
               className="h-40 w-auto sm:h-52"
             />
           </motion.div>

@@ -19,11 +19,16 @@ export type FormField = {
   max?: number;
   maxLength?: number;
   autoComplete?: string;
+  /** Optional section title rendered above this field. */
+  heading?: string;
 };
 
 type Props = {
   endpoint: string;
-  fields: FormField[];
+  /** A fixed list, or a function of the current values (for conditional fields). */
+  fields: FormField[] | ((values: Record<string, string>) => FormField[]);
+  /** Optionally reshape the payload before it is sent. */
+  shape?: (payload: Record<string, unknown>) => Record<string, unknown>;
   submitLabel: string;
   success: { title: string; text: string };
   note?: string;
@@ -32,9 +37,10 @@ type Props = {
 const control =
   "w-full rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3.5 text-[15px] text-white placeholder:text-white/25 outline-none transition-all duration-300 focus:border-accent/60 focus:bg-white/[0.06] focus:shadow-[0_0_0_4px_rgb(156_192_228/0.12)] aria-[invalid=true]:border-rose-400/60";
 
-export function DynamicForm({ endpoint, fields, submitLabel, success, note }: Props) {
+export function DynamicForm({ endpoint, fields: fieldsProp, shape, submitLabel, success, note }: Props) {
   const { t } = useI18n();
   const [values, setValues] = useState<Record<string, string>>({});
+  const fields = typeof fieldsProp === "function" ? fieldsProp(values) : fieldsProp;
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [honeypot, setHoneypot] = useState("");
   const [state, setState] = useState<"idle" | "loading" | "success" | "error" | "rate">("idle");
@@ -71,7 +77,7 @@ export function DynamicForm({ endpoint, fields, submitLabel, success, note }: Pr
       const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(shape ? shape(payload) : payload),
       });
       if (res.ok) {
         setState("success");
@@ -141,6 +147,11 @@ export function DynamicForm({ endpoint, fields, submitLabel, success, note }: Pr
               };
               return (
                 <div key={f.name} className={f.half ? "" : "sm:col-span-2"}>
+                  {f.heading && (
+                    <h3 className="mb-4 mt-4 border-b border-white/10 pb-3 font-display text-lg font-semibold text-white">
+                      {f.heading}
+                    </h3>
+                  )}
                   <label htmlFor={id} className="mb-2 block text-sm font-medium text-white/75">
                     {f.label}
                     {f.optional && <span className="ms-2 text-white/30">·</span>}

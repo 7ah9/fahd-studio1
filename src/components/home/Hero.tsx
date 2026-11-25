@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 
@@ -23,6 +23,17 @@ const CHIP_POS = [
 
 export function Hero({ eyebrow, title, subtitle, ctaWork, ctaJoin, scroll, chips }: HeroProps) {
   const stage = useRef<HTMLDivElement>(null);
+  const section = useRef<HTMLElement>(null);
+  const [inView, setInView] = useState(true);
+
+  // Same look, less work: stop the endless floor animation once the hero is scrolled out of view.
+  useEffect(() => {
+    const el = section.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const sx = useSpring(mx, { stiffness: 70, damping: 16 });
@@ -31,6 +42,7 @@ export function Hero({ eyebrow, title, subtitle, ctaWork, ctaJoin, scroll, chips
   const rotateX = useTransform(sy, [-1, 1], [10, -10]);
 
   function onMove(e: React.PointerEvent<HTMLDivElement>) {
+    if (e.pointerType !== "mouse") return;
     const el = stage.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
@@ -43,7 +55,7 @@ export function Hero({ eyebrow, title, subtitle, ctaWork, ctaJoin, scroll, chips
   }
 
   return (
-    <section className="noise relative isolate flex min-h-[100svh] items-center overflow-hidden pt-28 pb-20">
+    <section ref={section} className="noise relative isolate flex min-h-[100svh] items-center overflow-hidden pt-28 pb-20">
       {/* ambient light */}
       <div
         aria-hidden
@@ -58,7 +70,7 @@ export function Hero({ eyebrow, title, subtitle, ctaWork, ctaJoin, scroll, chips
         aria-hidden
         className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[52%] overflow-hidden [perspective:620px]"
       >
-        <div className="grid-floor absolute inset-x-[-60%] bottom-0 h-full animate-[floor-move_4s_linear_infinite] [transform-origin:50%_100%] [transform:rotateX(64deg)]" />
+        <div className={`grid-floor absolute inset-x-[-60%] bottom-0 h-full animate-[floor-move_4s_linear_infinite] [transform-origin:50%_100%] [transform:rotateX(64deg)] ${inView ? "" : "[animation-play-state:paused]"}`} />
       </div>
 
       <div className="mx-auto grid w-full max-w-6xl items-center gap-14 px-5 sm:px-8 lg:grid-cols-[1.05fr_0.95fr]">

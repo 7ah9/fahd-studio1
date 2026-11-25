@@ -26,6 +26,12 @@ const LABELS: Record<string, string> = {
   scenario: "إجابة السيناريو",
 };
 
+const ROLE_NAMES: Record<string, string> = {
+  moderator: "أدمن (Admin)",
+  support: "دعم الأعضاء",
+  events: "تنظيم الفعاليات",
+};
+
 const WEBHOOK_RE = /^https:\/\/(?:(?:ptb|canary)\.)?discord(?:app)?\.com\/api\/webhooks\/\d+\/[\w-]+$/;
 
 const clip = (v: string, max: number) => (v.length > max ? `${v.slice(0, max - 1)}…` : v);
@@ -48,7 +54,7 @@ export async function notifyDiscord(opts: {
     .slice(0, 20)
     .map(([key, value]) => ({
       name: LABELS[key],
-      value: clip(String(value), 900) || "-",
+      value: clip(key === "role" ? (ROLE_NAMES[String(value)] ?? String(value)) : String(value), 900) || "-",
       inline: String(value).length < 40,
     }));
 

@@ -14,7 +14,9 @@ export type InboxConfig = {
   /** Row key shown as the list title / subtitle. */
   titleKey: string;
   subKey: string;
-  details: { key: string; label: string; map?: Record<string, string>; ltr?: boolean; long?: boolean }[];
+  details: { key: string; label: string; map?: Record<string, string>; ltr?: boolean; long?: boolean; hideEmpty?: boolean }[];
+  /** Row key holding an array of { q, a } question/answer pairs. */
+  qaKey?: string;
   /** Status select (applications, support). */
   status?: {
     key: string;
@@ -142,6 +144,7 @@ export function InboxManager({ config, initial }: { config: InboxConfig; initial
               <dl className="mt-6 grid gap-5 sm:grid-cols-2">
                 {config.details.map((d) => {
                   const raw = selected[d.key];
+                  if (d.hideEmpty && !String(raw ?? "").trim()) return null;
                   const text = d.map ? (d.map[String(raw)] ?? String(raw ?? "")) : String(raw ?? "");
                   return (
                     <div key={d.key} className={d.long ? "sm:col-span-2" : ""}>
@@ -158,6 +161,20 @@ export function InboxManager({ config, initial }: { config: InboxConfig; initial
                   );
                 })}
               </dl>
+
+              {config.qaKey && Array.isArray(selected[config.qaKey]) && (selected[config.qaKey] as unknown[]).length > 0 && (
+                <div className="mt-8 space-y-4">
+                  <div className="text-xs text-white/40">الأسئلة والإجابات</div>
+                  {(selected[config.qaKey] as { q: string; a: string }[]).map((qa, i) => (
+                    <div key={i} className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-4">
+                      <div className="text-[13px] leading-6 text-accent/90">{qa.q}</div>
+                      <div className="mt-2 whitespace-pre-wrap break-words text-[15px] leading-7 text-white/85">
+                        {qa.a || "—"}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
 
               {config.status && (
                 <div className="mt-8">

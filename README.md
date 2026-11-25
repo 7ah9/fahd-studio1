@@ -12,3 +12,7 @@ Next.js + TypeScript + Tailwind v4 + Framer Motion + Supabase.
 ## إشعارات Discord وتقديم إدارة السيرفر
 - أضف متغير البيئة `DISCORD_WEBHOOK_URL` (رابط Webhook لقناة Discord) في Vercel ليصلك إشعار عند كل طلب انضمام/دعم/رسالة/تقديم إدارة.
 - شغّل `supabase/update-2-staff.sql` مرة واحدة في Supabase.
+
+## تحديث 4
+- شغّل `supabase/update-3-staff-questions.sql` مرة واحدة في Supabase (يضيف عمود الإجابات).
+- أسئلة تقديم الإدارة تعدّل من الملف `src/lib/staff-questions.ts`.
