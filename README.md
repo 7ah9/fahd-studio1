@@ -16,3 +16,7 @@ Next.js + TypeScript + Tailwind v4 + Framer Motion + Supabase.
 ## تحديث 4
 - شغّل `supabase/update-3-staff-questions.sql` مرة واحدة في Supabase (يضيف عمود الإجابات).
 - أسئلة تقديم الإدارة تعدّل من الملف `src/lib/staff-questions.ts`.
+
+## تحديث 5: ماباتنا + المقبولون + إيميل القبول
+- شغّل `supabase/update-4-maps-accepted-email.sql` مرة واحدة في Supabase.
+- لإيميل القبول أضف في Vercel: `GMAIL_USER` (إيميل Gmail) و `GMAIL_APP_PASSWORD` (كلمة مرور تطبيقات من حساب Google).

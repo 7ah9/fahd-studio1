@@ -47,6 +47,7 @@ create table if not exists public.projects (
   image_url text,
   link_url text,
   featured boolean not null default false,
+  is_map boolean not null default false,
   sort_order integer not null default 0,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -83,6 +84,9 @@ create table if not exists public.join_applications (
   specialty text not null,
   portfolio_links text not null default '',
   about text not null,
+  email text not null default '',
+  show_public boolean not null default false,
+  public_name text not null default '',
   status text not null default 'pending' check (status in ('pending','accepted','rejected')),
   admin_note text not null default '',
   created_at timestamptz not null default now()
@@ -99,6 +103,9 @@ create table if not exists public.staff_applications (
   motivation text default '',
   scenario text default '',
   answers jsonb not null default '[]'::jsonb,
+  email text not null default '',
+  show_public boolean not null default false,
+  public_name text not null default '',
   status text not null default 'pending' check (status in ('pending','accepted','rejected')),
   admin_note text not null default '',
   created_at timestamptz not null default now()

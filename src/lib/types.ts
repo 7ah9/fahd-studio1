@@ -11,6 +11,7 @@ export type Project = {
   image_url: string | null;
   link_url: string | null;
   featured: boolean;
+  is_map: boolean;
   sort_order: number;
   created_at: string;
 };

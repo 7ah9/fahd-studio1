@@ -14,6 +14,7 @@ const config: InboxConfig = {
   details: [
     { key: "discord_username", label: "Discord", ltr: true },
     { key: "age", label: "العمر" },
+    { key: "email", label: "الإيميل", ltr: true },
     {
       key: "experience_level",
       label: "مستوى الخبرة",
@@ -43,6 +44,7 @@ const config: InboxConfig = {
     ],
   },
   noteKey: "admin_note",
+  publicKey: { show: "show_public", name: "public_name" },
 };
 
 export default async function AdminApplicationsPage() {

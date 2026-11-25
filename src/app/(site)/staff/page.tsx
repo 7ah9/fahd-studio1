@@ -20,6 +20,7 @@ export default async function StaffPage() {
     { name: "full_name", label: s.fields.full_name, type: "text", half: true, maxLength: 80, autoComplete: "name" },
     { name: "age", label: s.fields.age, type: "number", half: true, min: 14, max: 80, ltr: true },
     { name: "discord_username", label: s.fields.discord_username, type: "text", half: true, ltr: true, maxLength: 33 },
+    { name: "email", label: s.fields.email, type: "email", half: true, ltr: true, maxLength: 120, autoComplete: "email", hint: s.fields.email_hint },
     {
       name: "role",
       label: s.fields.role,
@@ -31,6 +32,7 @@ export default async function StaffPage() {
       name: "experience",
       label: s.fields.experience,
       type: "select",
+      half: true,
       options: Object.entries(s.experiences).map(([value, label]) => ({ value, label })),
     },
   ];

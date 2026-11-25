@@ -14,6 +14,7 @@ const config: InboxConfig = {
   details: [
     { key: "discord_username", label: "Discord", ltr: true },
     { key: "age", label: "العمر" },
+    { key: "email", label: "الإيميل", ltr: true },
     {
       key: "role",
       label: "الدور المطلوب",
@@ -44,6 +45,7 @@ const config: InboxConfig = {
   },
   noteKey: "admin_note",
   qaKey: "answers",
+  publicKey: { show: "show_public", name: "public_name" },
 };
 
 export default async function AdminStaffPage() {

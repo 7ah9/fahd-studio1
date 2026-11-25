@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Badge, Btn, Card, Message, PageTitle, TextArea, api, formatDate } from "./ui";
+import { Badge, Btn, Card, Message, PageTitle, TextArea, api, fieldCls, formatDate } from "./ui";
 
 export type InboxRow = { id: string; created_at: string } & Record<string, unknown>;
 
@@ -26,6 +26,8 @@ export type InboxConfig = {
   readKey?: string;
   /** Free-text admin note (applications). */
   noteKey?: string;
+  /** Accepted applicants can be listed on the public "accepted" page (show flag + display name). */
+  publicKey?: { show: string; name: string };
   /** Show a mailto reply button using this row key as the address. */
   emailKey?: string;
 };
@@ -34,7 +36,15 @@ export function InboxManager({ config, initial }: { config: InboxConfig; initial
   const router = useRouter();
   const [items, setItems] = useState(initial);
   const [selectedId, setSelectedId] = useState<string | null>(initial[0]?.id ?? null);
-  const [note, setNote] = useState("");
+  const [note, setNote] = useState(() =>
+    config.noteKey ? String(initial[0]?.[config.noteKey] ?? "") : "",
+  );
+  const [pubShow, setPubShow] = useState(() =>
+    config.publicKey ? initial[0]?.[config.publicKey.show] === true : false,
+  );
+  const [pubName, setPubName] = useState(() =>
+    config.publicKey ? String(initial[0]?.[config.publicKey.name] ?? "") : "",
+  );
   const [msg, setMsg] = useState<{ kind: "ok" | "error"; text: string } | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -49,7 +59,17 @@ export function InboxManager({ config, initial }: { config: InboxConfig; initial
     setBusy(false);
     if (res.ok && res.data) {
       replace(res.data);
-      setMsg(okText ? { kind: "ok", text: okText } : null);
+      if (body.status === "accepted" && res.mail) {
+        const mailText: Record<string, string> = {
+          sent: "تم القبول ✅ وأُرسل إيميل القبول للمتقدم.",
+          no_email: "تم القبول، لكن هذا التقديم قديم وما فيه إيميل للمتقدم.",
+          not_configured: "تم القبول، لكن إرسال الإيميل غير مفعّل بعد (أضف GMAIL_USER و GMAIL_APP_PASSWORD في Vercel).",
+          failed: "تم القبول، لكن تعذر إرسال الإيميل (تأكد من إعدادات Gmail).",
+        };
+        setMsg({ kind: res.mail === "sent" ? "ok" : "error", text: mailText[res.mail] ?? "تم القبول." });
+      } else {
+        setMsg(okText ? { kind: "ok", text: okText } : null);
+      }
       router.refresh();
       return true;
     }
@@ -61,6 +81,10 @@ export function InboxManager({ config, initial }: { config: InboxConfig; initial
     setSelectedId(row.id);
     setMsg(null);
     setNote(config.noteKey ? String(row[config.noteKey] ?? "") : "");
+    if (config.publicKey) {
+      setPubShow(row[config.publicKey.show] === true);
+      setPubName(String(row[config.publicKey.name] ?? ""));
+    }
     // Opening a message marks it as read.
     if (config.readKey && row[config.readKey] === false) {
       void patch(row.id, { [config.readKey]: true });
@@ -193,6 +217,49 @@ export function InboxManager({ config, initial }: { config: InboxConfig; initial
                         </Btn>
                       );
                     })}
+                  </div>
+                </div>
+              )}
+
+              {config.publicKey && config.status && selected[config.status.key] === "accepted" && (
+                <div className="mt-8 rounded-2xl border border-white/[0.07] bg-white/[0.02] p-4">
+                  <label className="flex items-center gap-3">
+                    <input
+                      type="checkbox"
+                      checked={pubShow}
+                      onChange={(e) => setPubShow(e.target.checked)}
+                      className="h-4 w-4 accent-[#9cc0e4]"
+                    />
+                    <span className="text-sm text-white/80">إظهاره في صفحة «المقبولون» العامة</span>
+                  </label>
+                  <input
+                    value={pubName}
+                    onChange={(e) => setPubName(e.target.value)}
+                    maxLength={60}
+                    placeholder="الاسم الذي يظهر للزوار (مثلاً: فالح)"
+                    className={`${fieldCls} mt-3`}
+                  />
+                  <p className="mt-2 text-xs text-white/35">
+                    يظهر للزوار هذا الاسم فقط مع الدور أو التخصص، بدون العمر أو الديسكورد أو الإيميل.
+                  </p>
+                  <div className="mt-3">
+                    <Btn
+                      variant="ghost"
+                      disabled={busy}
+                      onClick={() => {
+                        if (pubShow && !pubName.trim()) {
+                          setMsg({ kind: "error", text: "اكتب الاسم الذي يظهر للزوار أولاً." });
+                          return;
+                        }
+                        void patch(
+                          selected.id,
+                          { show_public: pubShow, public_name: pubName.trim() },
+                          pubShow ? "تم، سيظهر في صفحة المقبولون." : "تم، لن يظهر في الصفحة العامة.",
+                        );
+                      }}
+                    >
+                      حفظ
+                    </Btn>
                   </div>
                 </div>
               )}

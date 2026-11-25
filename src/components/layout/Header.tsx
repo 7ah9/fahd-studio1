@@ -14,6 +14,7 @@ const LINKS = [
   { href: "/about", key: "about" },
   { href: "/services", key: "services" },
   { href: "/portfolio", key: "portfolio" },
+  { href: "/maps", key: "maps" },
   { href: "/partners", key: "partners" },
   { href: "/developer-support", key: "support" },
   { href: "/contact", key: "contact" },
@@ -59,7 +60,7 @@ export function Header() {
             : "border-b border-transparent"
         }`}
       >
-        <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between gap-6 px-5 sm:px-8">
+        <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between gap-4 px-5 sm:px-8 xl:max-w-7xl 2xl:gap-6">
           <Link href="/" className="group flex items-center gap-3" aria-label="FAHAD STUDIO">
             <Image
               src="/brand/fahd-mark.png"
@@ -69,7 +70,7 @@ export function Header() {
               priority
               className="h-10 w-auto transition-transform duration-500 group-hover:scale-105"
             />
-            <span className="whitespace-nowrap font-display text-[17px] font-semibold tracking-[0.18em] text-white">
+            <span className="whitespace-nowrap font-display text-[17px] font-semibold tracking-[0.12em] text-white 2xl:tracking-[0.18em]">
               FAHAD <span className="text-accent">STUDIO</span>
             </span>
           </Link>
@@ -80,7 +81,7 @@ export function Header() {
                 key={l.href}
                 href={l.href}
                 aria-current={isActive(l.href) ? "page" : undefined}
-                className={`relative whitespace-nowrap rounded-full px-3.5 py-2 text-[14.5px] transition-colors duration-300 ${
+                className={`relative whitespace-nowrap rounded-full px-2.5 py-2 text-[14px] transition-colors 2xl:px-3.5 2xl:text-[14.5px] duration-300 ${
                   isActive(l.href) ? "text-white" : "text-white/55 hover:text-white"
                 }`}
               >

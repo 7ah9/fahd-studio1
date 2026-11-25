@@ -19,6 +19,7 @@ export default async function JoinPage() {
     { name: "full_name", label: j.fields.full_name, type: "text", half: true, maxLength: 80, autoComplete: "name" },
     { name: "age", label: j.fields.age, type: "number", half: true, min: 10, max: 80, ltr: true },
     { name: "discord_username", label: j.fields.discord_username, type: "text", half: true, ltr: true, maxLength: 33 },
+    { name: "email", label: j.fields.email, type: "email", half: true, ltr: true, maxLength: 120, autoComplete: "email", hint: j.fields.email_hint },
     {
       name: "experience_level",
       label: j.fields.experience_level,
@@ -30,6 +31,7 @@ export default async function JoinPage() {
       name: "specialty",
       label: j.fields.specialty,
       type: "select",
+      half: true,
       options: Object.entries(j.specialties).map(([value, label]) => ({ value, label })),
     },
     {
@@ -60,9 +62,14 @@ export default async function JoinPage() {
         <Reveal>
           <div className="glass mt-8 flex flex-wrap items-center justify-between gap-4 rounded-2xl p-6">
             <p className="text-white/80">{t.staff.joinCta}</p>
-            <Button href="/staff" variant="ghost" arrow>
-              {t.staff.joinCtaBtn}
-            </Button>
+            <div className="flex flex-wrap gap-3">
+              <Button href="/accepted" variant="ghost">
+                {t.nav.accepted}
+              </Button>
+              <Button href="/staff" variant="ghost" arrow>
+                {t.staff.joinCtaBtn}
+              </Button>
+            </div>
           </div>
         </Reveal>
       </section>

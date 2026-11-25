@@ -18,6 +18,7 @@ type Draft = {
   image_url: string;
   link_url: string;
   featured: boolean;
+  is_map: boolean;
   sort_order: string;
 };
 
@@ -33,6 +34,7 @@ const EMPTY: Draft = {
   image_url: "",
   link_url: "",
   featured: false,
+  is_map: false,
   sort_order: "0",
 };
 
@@ -48,6 +50,7 @@ const toDraft = (p: Project): Draft => ({
   image_url: p.image_url ?? "",
   link_url: p.link_url ?? "",
   featured: p.featured,
+  is_map: p.is_map ?? false,
   sort_order: String(p.sort_order),
 });
 
@@ -249,6 +252,16 @@ export function ProjectsManager({ initial }: { initial: Project[] }) {
                 className="h-4 w-4 accent-[#9cc0e4]"
               />
               <span className="text-sm text-white/70">مشروع مميّز (يظهر في الصفحة الرئيسية)</span>
+            </label>
+
+            <label className="flex items-center gap-3 sm:col-span-2">
+              <input
+                type="checkbox"
+                checked={draft.is_map}
+                onChange={(e) => set("is_map", e.target.checked)}
+                className="h-4 w-4 accent-[#9cc0e4]"
+              />
+              <span className="text-sm text-white/70">ماب (يظهر أيضاً في صفحة «ماباتنا»)</span>
             </label>
 
             <div className="flex gap-3 sm:col-span-2">

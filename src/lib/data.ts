@@ -57,7 +57,7 @@ export async function getSocialLinks(): Promise<SocialLink[]> {
   return rows.filter((r) => r.url.trim() !== "");
 }
 
-export function getProjects(opts: { featuredOnly?: boolean; limit?: number } = {}): Promise<Project[]> {
+export function getProjects(opts: { featuredOnly?: boolean; mapsOnly?: boolean; limit?: number } = {}): Promise<Project[]> {
   return safe<Project[]>(`projects:${JSON.stringify(opts)}`, [], () => {
     let q = db()
       .from("projects")
@@ -65,6 +65,7 @@ export function getProjects(opts: { featuredOnly?: boolean; limit?: number } = {
       .order("sort_order", { ascending: true })
       .order("created_at", { ascending: false });
     if (opts.featuredOnly) q = q.eq("featured", true);
+    if (opts.mapsOnly) q = q.eq("is_map", true);
     if (opts.limit) q = q.limit(opts.limit);
     return q;
   });
@@ -85,4 +86,34 @@ export function getPartners(): Promise<Partner[]> {
   return safe<Partner[]>("partners", [], () =>
     db().from("partners").select("*").order("sort_order", { ascending: true }),
   );
+}
+
+export type AcceptedPublic = {
+  members: { public_name: string; specialty: string }[];
+  staff: { public_name: string; role: string }[];
+};
+
+/** Accepted applicants that the admin chose to show publicly (display name only). */
+export async function getAccepted(): Promise<AcceptedPublic> {
+  const [members, staff] = await Promise.all([
+    safe<AcceptedPublic["members"]>("accepted:join", [], () =>
+      db()
+        .from("join_applications")
+        .select("public_name,specialty")
+        .eq("status", "accepted")
+        .eq("show_public", true)
+        .neq("public_name", "")
+        .order("created_at", { ascending: true }),
+    ),
+    safe<AcceptedPublic["staff"]>("accepted:staff", [], () =>
+      db()
+        .from("staff_applications")
+        .select("public_name,role")
+        .eq("status", "accepted")
+        .eq("show_public", true)
+        .neq("public_name", "")
+        .order("created_at", { ascending: true }),
+    ),
+  ]);
+  return { members, staff };
 }

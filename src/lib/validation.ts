@@ -30,6 +30,14 @@ const discord = z
   .transform((v) => v.replace(/^@/, ""))
   .pipe(z.string().regex(/^[A-Za-z0-9_.]{2,32}$/, "discord"));
 
+const emailField = z
+  .string({ required_error: "required", invalid_type_error: "invalid" })
+  .trim()
+  .toLowerCase()
+  .min(1, "required")
+  .max(120, "tooLong")
+  .email("email");
+
 export const EXPERIENCE = ["beginner", "intermediate", "advanced", "expert"] as const;
 export const SPECIALTIES = [
   "scripting",
@@ -60,6 +68,7 @@ export const joinSchema = z.object({
   discord_username: discord,
   experience_level: enumOf(EXPERIENCE),
   specialty: enumOf(SPECIALTIES),
+  email: emailField,
   portfolio_links: optionalText(1500),
   about: text(10, 1500),
 });
@@ -69,6 +78,7 @@ export const staffSchema = z
     full_name: text(2, 80),
     age: z.coerce.number({ invalid_type_error: "age" }).int("age").min(14, "age").max(80, "age"),
     discord_username: discord,
+    email: emailField,
     role: enumOf(STAFF_ROLES),
     experience: enumOf(STAFF_EXPERIENCE),
     answers: z.record(z.string(), z.string().trim().max(1500, "tooLong")).default({}),
@@ -91,6 +101,7 @@ export const staffSchema = z
     full_name: d.full_name,
     age: d.age,
     discord_username: d.discord_username,
+    email: d.email,
     role: d.role,
     experience: d.experience,
     // Stored with the (Arabic) question text so the admin sees what was asked.
@@ -143,6 +154,7 @@ export const projectSchema = z.object({
     .default(""),
   link_url: httpUrl.default(""),
   featured: z.boolean().default(false),
+  is_map: z.boolean().default(false),
   sort_order: z.coerce.number().int().min(0).max(9999).default(0),
 });
 
@@ -184,6 +196,8 @@ export const partnerSchema = z.object({
 export const applicationUpdateSchema = z.object({
   status: enumOf(["pending", "accepted", "rejected"]),
   admin_note: optionalText(2000),
+  show_public: z.boolean().default(false),
+  public_name: optionalText(60),
 });
 
 export const supportUpdateSchema = z.object({
